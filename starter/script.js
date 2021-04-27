@@ -78,7 +78,7 @@ messages.innerHTML =
 
 const header = document.querySelector('header');
 //header.prepend(messages); //this inserted in the top of the header  or to our hrader dom element  or we can say the first child
-header.append(messages); //this inserted at the bottom of the header  or  as last child
+header.append(messages); //this inserted at the bottom of the header  or   a as last child
 
 //when we need the cookie in maltiple places then
 //header.append(messages.cloneNode(true)); //all the child elements also cloned
@@ -103,3 +103,85 @@ document
     //messages.parentElement.removeChild(message);//long way
   });
 //the above code remove the button that we added as a cookie when we click on it
+
+///////Styles
+
+//lets add styles for the cookie
+
+messages.style.backgroundColor = '#37383d'; //added this color to the cookie
+messages.style.width = '120%'; //added this height to the cookie
+
+console.log(messages.style.color); //<empty string>  becouse we can not reterive the hidden color inside the class or color that is not exist
+console.log(messages.style.backgroundColor); //rgb(55, 56, 61)  we acceess this color becouse we set it by our self
+console.log(messages.style.width); //120%
+console.log(messages.style.height); //<empty string>
+
+console.log(getComputedStyle(messages).color); // rgb(187, 187, 187) //by using  'getComputedStyle' method we can get the color that sets inside the class   so the  result of the above empty string is now here acceced and solved
+console.log(getComputedStyle(messages).height); //49.6px    this is the same too
+
+//add the height of the cookie by disired px
+
+messages.style.height =
+  Number.parseFloat(getComputedStyle(messages).height, 10) + 70 + 'px'; //now we saccefully added 70 px  to the  49.6px
+//note: we first paraise the height and change to number using ' Number.parseFloat' becouse its not only number but it also px (49.6px) which is string
+console.log(getComputedStyle(messages).height); //119.6px   the new height       70+49.6
+
+///castom properties
+//we can change the property color of the  custom property
+
+document.documentElement.style.setProperty('--color-primary', 'orangered'); //this change the '--color-primary'  colors to orange red
+
+////Attribute
+//eg lets  work with the  logo  of the bankist
+//standard atribute
+const logo = document.querySelector('.nav__logo'); //selecting the class of the logo
+
+console.log(logo.alt); //Bankist logo
+console.log(logo.className); //nav__logo
+
+logo.alt = ' beutiful minimalist logo '; //we change the above logo
+
+//non -standard attribute
+console.log(logo.designer); //undefined     becouse we can not access non standared directly
+//but we can access it using get attrubute method
+
+console.log(logo.getAttribute('designer')); //Jonas
+
+//we can also set Attributes
+console.log(logo.setAttribute('company', 'bankist')); //this   set    company='bankist' in  the html logo class
+
+console.log(logo.src); //http://127.0.0.1:8080/starter/img/logo.png ///absolute version
+console.log(logo.getAttribute('src')); //relative version //img/logo.png    we access the specific src that is in the htlm logo class
+
+//let also see twitter link
+
+const link = document.querySelector('.twitter-link');
+console.log(link.href); //https://twitter.com/jonasschmedtman
+console.log(link.getAttribute('href')); //https://twitter.com/jonasschmedtman
+
+//btn link
+const btnLink = document.querySelector('.nav__link--btn');
+console.log(btnLink.href); //http://127.0.0.1:8080/starter/#
+console.log(btnLink.getAttribute('href')); //#
+
+///Data attribute
+console.log(logo.dataset.versionNumber); //3.0     the special atrtribute is stored in the data set object  note:they should be start with data in the html
+
+/*so that's important to keep in mind. So for these special attributes,
+they are always stored in the dataset object and indeed then down here we have that 3.0
+so we use actually data attributes quite a lot when we work with the UI and especially
+when we need to store data in user interface, so basically in the HTML code,*/
+
+////clases
+
+logo.classList.add('c', 'd'); // we can add class name   ../// we  can also add multiple clases
+logo.classList.remove('c'); //remove class
+logo.classList.toggle('c'); //toggle class
+logo.classList.contains('c'); //if token is present or not
+
+//dont use
+//logo.className = 'jonas';
+/*Note:using the class name property, we could also use that to set a class,
+so we could do logo.className and I had said that, well let's say to Jonas.
+However, don't use this, don't use, because this will override all the existing classes
+and also it allows us to only put one class on any element, all right, so again, only one class*/
