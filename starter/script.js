@@ -185,3 +185,52 @@ logo.classList.contains('c'); //if token is present or not
 so we could do logo.className and I had said that, well let's say to Jonas.
 However, don't use this, don't use, because this will override all the existing classes
 and also it allows us to only put one class on any element, all right, so again, only one class*/
+
+////add smooth scrolling from the view port to the first section
+
+const btnScrollTo = document.querySelector('.btn--scroll-to'); //we chose the class  btn--scroll-to
+const section1 = document.querySelector('#section--1'); //we chose section where the scroll goes
+
+btnScrollTo.addEventListener('click', function (e) {
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+////types of event and event handlers   see list in MDN
+
+//eg lets choose h1 and we will get allert when the mouth inters the page
+
+/*
+const h1 = document.querySelector('h1');
+h1.addEventListener('mouseover', function (e) {
+  alert('addEventListener: you are reading the heading'); //we can use multiple events using event listner in one time
+});
+
+h1.addEventListener('mouseenter', function (e) {
+  alert('addEventListener: you are reading the heading okkkkkk');
+});
+//or you can use the old way
+h1.onmouseenter = function (e) {
+  alert('onmouseenter: you are reading the heading'); //we can add multiple events using this old way but they override each other
+};
+h1.onmouseenter = function (e) {
+  alert('onmouseenter: you are reading the heading mennn'); //this over ride the first h1.onmouseenter
+};
+//note addEvent listener is the best becouse we can add multiple events to it  but the 'onmouseenter' can add events but the second event override the other event
+
+*/
+
+///if we want to listen an event only once  and then remove
+
+//lets comment out the addEvents in the above code from making confusion
+
+const h1 = document.querySelector('h1');
+const alertH1 = function (e) {
+  alert('addEventListener: you are reading the heading'); //we listen it once
+
+  //h1.removeEventListener('mouseenter', alertH1); //we remove the event after we listen it once
+};
+h1.addEventListener('mouseenter', alertH1);
+
+//what if we need them to remove after certain time  then we use settimeout
+
+setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000); //this will remove the event after 3 seconds
