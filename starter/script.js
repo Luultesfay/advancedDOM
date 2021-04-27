@@ -55,7 +55,7 @@ console.log(allButtons);
 //note: html
 /*getElementById method actually returns an HTML collection. So that's different from a node list
 because an HTML collection is actually a so-called life collection.
-And that means that if the DOM changes then this collection  is also immediately updated automatically  for example if we delele one button from the dom html then htmlCollection automaticaly update wihich means it reduce the dalated button or element from the collection.*/
+And that means that if the DOM changes then this collection  is also immediately updated automatically  for example if we delele one button from the dom html then htmlCollection automaticaly update wihich means it reduce the deleted button or element from the collection.*/
 
 const btnbyClassName = document.getElementsByClassName('btn');
 console.log(btnbyClassName); // html collection automatically update any change ///////creating and inserting elements
@@ -67,7 +67,7 @@ console.log(btnbyClassName); // html collection automatically update any change 
 //inserting element // manually with .insertAdjusentHtml  refer previous bankist
 
 const messages = document.createElement('div');
-messages.classList.add('cookie-message'); //we added cookie-message to the div element
+messages.classList.add('cookie-message'); //we added cookie-message class to the div element
 
 //message.textContent='we use cookies for improve functionality and analytics'
 
@@ -127,7 +127,7 @@ messages.style.height =
 console.log(getComputedStyle(messages).height); //119.6px   the new height       70+49.6
 
 ///castom properties
-//we can change the property color of the  custom property
+//we can change the custom property property color
 
 document.documentElement.style.setProperty('--color-primary', 'orangered'); //this change the '--color-primary'  colors to orange red
 
@@ -175,9 +175,9 @@ when we need to store data in user interface, so basically in the HTML code,*/
 ////clases
 
 logo.classList.add('c', 'd'); // we can add class name   ../// we  can also add multiple clases
-logo.classList.remove('c'); //remove class
+logo.classList.remove('c', 'f'); //remove class       ///// we can also remove maltiple classes
 logo.classList.toggle('c'); //toggle class
-logo.classList.contains('c'); //if token is present or not
+logo.classList.contains('c'); //if token is present or not        // this is not iclude
 
 //dont use
 //logo.className = 'jonas';
@@ -189,10 +189,10 @@ and also it allows us to only put one class on any element, all right, so again,
 ////add smooth scrolling from the view port to the first section
 
 const btnScrollTo = document.querySelector('.btn--scroll-to'); //we chose the class  btn--scroll-to
-const section1 = document.querySelector('#section--1'); //we chose section where the scroll goes
+const section1 = document.querySelector('#section--1'); //we chose section to  where the scroll goes
 
 btnScrollTo.addEventListener('click', function (e) {
-  section1.scrollIntoView({ behavior: 'smooth' });
+  section1.scrollIntoView({ behavior: 'smooth' }); ///this make it scroll smothly from viewport to the sections or from one section to another
 });
 
 ////types of event and event handlers   see list in MDN
@@ -225,7 +225,7 @@ h1.onmouseenter = function (e) {
 
 const h1 = document.querySelector('h1');
 const alertH1 = function (e) {
-  alert('addEventListener: you are reading the heading'); //we listen it once
+  alert('addEventListener: you are reading the heading'); //we listen it once if we remove addeventlistener
 
   //h1.removeEventListener('mouseenter', alertH1); //we remove the event after we listen it once
 };
