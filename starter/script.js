@@ -234,3 +234,39 @@ h1.addEventListener('mouseenter', alertH1);
 //what if we need them to remove after certain time  then we use settimeout
 
 setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000); //this will remove the event after 3 seconds
+
+//////EVENT PROPOGATION :BUBLINNG AND CAPTURING
+
+//Capturing
+/*Another phase of event processing is known as capturing. In practice, 
+it is rarely used but can be useful sometimes. With capturing, firstly, 
+the outermost element captures the event. Then the event is propagated to the inner elements.
+
+So, for reaching the click on <tr> , the event should pass through the chain of ancestors down to the exact element. 
+This process is called “capturing”. Then, it gets to the target, triggering there ( it is the target phase), and only after that,
+ it goes up (the phase of bubbling), calling the handlers on its path.
+
+*/
+
+//event.target
+
+/*The parent element’s handler can always receive the details where it happened. 
+The most deeply nested element causing the event, is known as a target element, and it is accessible as event.target.
+
+-the event.target is the target element, initiating the event. It will not change through the process of bubbling.*/
+
+//Bubbling
+
+/**The principle of bubbling is simple. Whenever an event occurs on an element,
+  at first place it will run the handler on it, then its parent, then on other ancestors.*/
+
+///SUMMERY
+/*The processes of capturing and bubbling are means of event propagation
+ in the HTML DOM API when an event happens inside an element within another element, 
+and both of the elements have registered a handler.
+
+So, when an event occurs, the most nested element in which it happened becomes
+ the “target element” (event.target). Afterward, this event moves down from the 
+ document root to the target element, calling the handlers assigned with addEventListener(...., true) on the path. 
+ Then the element bubbles up from the target element to the root and calls the handlers assigned with on<event> and
+  addEventListener without applying any third argument.*/
