@@ -270,3 +270,67 @@ So, when an event occurs, the most nested element in which it happened becomes
  document root to the target element, calling the handlers assigned with addEventListener(...., true) on the path. 
  Then the element bubbles up from the target element to the root and calls the handlers assigned with on<event> and
   addEventListener without applying any third argument.*/
+
+//eg
+
+//lets generate a ranndom color of rgb()  from 0 to 255   like rgb(234,0,255)  so on
+
+const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+//console.log(randInt(0, 255));  for testing porpuse
+const randomColor = () =>
+  `rgb(${randInt(0, 255)},${randInt(0, 255)},${randInt(0, 255)})`;
+
+//console.log(randomColor(0, 255)); //rgb(86,146,205)   it gives as random colors
+
+//lets attach then event handler to the specified element for click to happen
+//i this case the class of the feature from bankist
+
+document.querySelector('.nav__link').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor(); //and remember that in an event handler that this keyword, points always to the element on which that event handler is attached.
+  console.log('LINK', e.target, e.currentTarget); //   First saying that this is the LINK and then event.target  And the target is essentially where the event originated.So where the event first happened.So this is not the element on which the handler is actually attached, okay?
+  //e.currentTarget is  the element on which the handler is actually attached,  here is the LINK document.querySelector('.nav__link').
+  //console.log(this === document.querySelector('.nav__link'));  true i write this code for testing purpose   that   the this key word is pointed to element on which that event handler is attached.  here(('.nav__link')
+
+  //we can actually stop the event propagation. if we want to stop the propogation or bubbling to the parent elements
+
+  //e.stopPropagation(); // if we stop the propagation then the parent element  never been  reached and then they will not handled the events but this is not good idea of stopping propogation
+});
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('CONTAINER', e.target, e.currentTarget); //here e.target is not changed, e.currentTarget  is changed
+});
+
+document.querySelector('.nav').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('NAV', e.target, e.currentTarget); //here e.target is not changed, e.currentTarget  is changed
+});
+//note  : here in the above example  when an event happened or when click  first happened in the target element then  the capturing phase is starting
+// and goes down to the target element where the elemet click triggerd to handle the event after that Then the element bubbles up from the target element to the root
+//it passes every parent element of each stage
+
+//note the target element is not changen in all stages   ,  but the current event   changes
+
+/*LINK 
+//here this is target event where the click happened first   
+<a class="nav__link" href="#" style="background-color: rgb(36, 213, 194);"> target event is not changed  becouse event target is where the click generated
+<a class="nav__link" href="#" style="background-color: rgb(36, 213, 194);"> current event is not changed here also  becouse this it self target event
+script.js:290:11
+CONTAINER 
+<a class="nav__link" href="#" style="background-color: rgb(36, 213, 194);"> target event is not changed  where the click happens first
+<ul class="nav__links" style="background-color: rgb(89, 147, 20);">current event  is changed here becouse e.currentTarget is  the element on which the handler is actually attached,
+script.js:297:11
+NAV 
+<a class="nav__link" href="#" style="background-color: rgb(36, 213, 194);">  target event is not changed  where the click happens and when babbling up word to the parent element of the 
+<nav class="nav" style="background-color: rgb(161, 241, 76); //current event  is changed here becouse this is the parent element of target element
+  */
+
+//note:the bubbling phase can be very useful for somethng called event delegation.
+
+///// if we really do want to catch events during the capturing phase, we can define a third parameter in the addEventlistener function.  we set it to true then  we then listening the capturing phase if we set it to folse then to bubbling phase
+/*
+document.querySelector('.nav').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('NAV', e.target, e.currentTarget); //here e.target is not changed, e.currentTarget  is changed
+},true);//this true is the third parameter
+*/
