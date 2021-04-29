@@ -186,7 +186,7 @@ so we could do logo.className and I had said that, well let's say to Jonas.
 However, don't use this, don't use, because this will override all the existing classes
 and also it allows us to only put one class on any element, all right, so again, only one class*/
 
-////add smooth scrolling from the view port to the first section
+//////////////add smooth scrolling from the view port to the first section
 
 const btnScrollTo = document.querySelector('.btn--scroll-to'); //we chose the class  btn--scroll-to
 const section1 = document.querySelector('#section--1'); //we chose section to  where the scroll goes
@@ -235,7 +235,7 @@ h1.addEventListener('mouseenter', alertH1);
 
 setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000); //this will remove the event after 3 seconds
 
-//////EVENT PROPOGATION :BUBLINNG AND CAPTURING
+/////////////////////EVENT PROPOGATION :BUBLINNG AND CAPTURING
 
 //Capturing
 /*Another phase of event processing is known as capturing. In practice, 
@@ -272,6 +272,11 @@ So, when an event occurs, the most nested element in which it happened becomes
   addEventListener without applying any third argument.*/
 
 //eg
+/*
+
+
+
+
 
 //lets generate a ranndom color of rgb()  from 0 to 255   like rgb(234,0,255)  so on
 
@@ -305,6 +310,13 @@ document.querySelector('.nav').addEventListener('click', function (e) {
   this.style.backgroundColor = randomColor();
   console.log('NAV', e.target, e.currentTarget); //here e.target is not changed, e.currentTarget  is changed
 });
+
+
+
+
+
+*/
+
 //note  : here in the above example  when an event happened or when click  first happened in the target element then  the capturing phase is starting
 // and goes down to the target element where the elemet click triggerd to handle the event after that Then the element bubbles up from the target element to the root
 //it passes every parent element of each stage
@@ -334,3 +346,22 @@ document.querySelector('.nav').addEventListener('click', function (e) {
   console.log('NAV', e.target, e.currentTarget); //here e.target is not changed, e.currentTarget  is changed
 },true);//this true is the third parameter
 */
+
+/////////////////////////EVENT DELIGATION : implementing page navigation
+
+///we  will comment out the above codes  to avoid confusion
+
+//now we will select the  nav__link class to make smooth scrolling to the sections
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  //console.log('click');
+  e.preventDefault();
+
+  //matching
+
+  if (e.target.classList.contains('nav__link')) {
+    //this means if the clicked elements (target element ) contains  the nav__link class then perform smooth scrolling   note:if the we clicked outside the element then nothing gonna happen becouse the target element will not contain the class 'nav__link'
+    const id = e.target.getAttribute('href'); //this will give us the sections    section--1 section--2  section --3
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
