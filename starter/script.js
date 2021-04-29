@@ -401,3 +401,43 @@ console.log(H1.nextSibling); //#text  nodes
 
 //if we want all subling elemnets for h1
 console.log(h1.parentElement.children); //HTMLCollection { 0: h1, 1: h4, 2: button.btn--text.btn--scroll-to, 3: img.header__img, length: 4 }  all the sublings elements  of the h1 element
+
+//////BUILDING A TABBED COMPENENT
+//NOTE: WE will see here  the tree tabs when  we click the first tab then it display its   content , and then when we tab the second tab we get its content while the ather taps where hiden and also for the third one too the same
+
+//lets select the tabs
+
+const tabs = document.querySelectorAll('.operations__tab'); //we select all the tree tabs becouse they have  'operations__tab' class for all of them
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content'); //we select all three 'operations__content' class of the three tab
+
+//lets loop over the tabs using 'forEach' and add event handler to the tabs
+
+//tabs.forEach(t => t.addEventListener('click', () => console.log('TAB'))); ///  doing this here is a bad practice because what if we had like 200 tabs? Then we would have 200 copies of this exact callback function here
+//and that would simply slow down the page. So that's not at all desirable. so we need using event deligation
+
+//using event deligation
+///And remember that for event delegation, we need to attach the event handler on the common parent element of all the elements that we're interested in. And in our case, that is this tabs container, right?
+
+tabsContainer.addEventListener('click', function (e) {
+  //const cliked = e.target; //.closest('.operation__tab') with out this closest parent element  when we click at the tab it give as what we need but when we click in the number it give us span only so we need to fix using closest parent by selectin it like below code
+  const cliked = e.target.closest('.operations__tab'); //we get what we want even when we click in the numbers   // out put <button class="btn operations__tab oper…operations__tab--active" data-tab="1">
+  //console.log(cliked);  only to check if it working correctly
+
+  //Guard clouse   --this can prevent error happened  when a  click happened  outside of the buttons
+  if (!cliked) return; //modern way of returning  if there is not clicked happened
+
+  //remove activated class
+  tabs.forEach(t => t.classList.remove('operations__tab--active')); //we select the class 'operations__tab--active' we remove the active class then we added active class to the current active class when it cliked
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+
+  //activate tabs
+  cliked.classList.add('operations__tab--active'); //when cliked happened the  clicked one becomes active and the button ups in the screen then down when it is in active eg//<button class="btn operations__tab oper…operations__tab--active" data-tab="2">
+
+  ///activate the content area
+
+  document
+    .querySelector(`.operations__content--${cliked.dataset.tab}`) //clicked.dataset.tabs   gives us the carrent  data set  1,2,3
+    .classList.add('operations__content--active');
+});
+//refer to the video 191 of jonas in udemy
