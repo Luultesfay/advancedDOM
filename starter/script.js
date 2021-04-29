@@ -365,3 +365,39 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
+
+/////////DOM TRAVERSING   .....
+//So Dom traversing is basically walking through the Dom. Which means that we can select an element
+//based on another element. And this is very important because sometimes we need to select elements
+//relative to a certain other element. For example, a direct child or a direct parent element.
+
+//lets select h1 element
+const H1 = document.querySelector('h1');
+
+//going downwords:child
+console.log(H1.querySelectorAll('.highlight')); //we selects the highlighted childs of the h1 element    NodeList [ span.highlight, span.highlight ]
+console.log(H1.children); // HTMLCollection { 0: span.highlight, 1: br, 2: span.highlight, length: 3 } //this works only for the direct children of H1
+console.log(H1.childNodes); //NodeList(9) [ #text, <!--  Green highlight effect  -->, #text, span.highlight, #text, br, #text, span.highlight, #text ]//all  the children
+console.log(H1.firstElementChild); //<span class="highlight">
+H1.firstElementChild.style.color = 'white'; ///  banking becomes white
+H1.lastElementChild.style.color = 'orangered'; ///minimalist change to 'orangered'
+
+//going upwords//parents
+
+console.log(H1.parentNode); //   header title is the direct parent of the h1 element   //<div class="header__title">
+console.log(H1.parentElement); //the same  header__title  <div class="header__title">
+
+console.log(H1.closest('.header')); //<header class="header">  //The closest() method traverses the Element and its parents (heading toward the document root) until it finds a node that matches the provided selector string
+H1.closest('.header').style.background = 'lightgreen'; //we change the background color of parent element
+H1.closest('h1').style.background = 'skyblue'; //here the closeset parent is h1 it self
+
+/////going sideways: siblings
+//subling elemnts
+console.log(H1.previousElementSibling); //null becouse there is no subling element above h1  that sulings t0 h1
+console.log(H1.nextElementSibling); // h4     this is the subling after h1
+//subling nodes
+console.log(H1.previousSibling); //#text   nodes
+console.log(H1.nextSibling); //#text  nodes
+
+//if we want all subling elemnets for h1
+console.log(h1.parentElement.children); //HTMLCollection { 0: h1, 1: h4, 2: button.btn--text.btn--scroll-to, 3: img.header__img, length: 4 }  all the sublings elements  of the h1 element
