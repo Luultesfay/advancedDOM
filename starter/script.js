@@ -441,3 +441,55 @@ tabsContainer.addEventListener('click', function (e) {
     .classList.add('operations__content--active');
 });
 //refer to the video 191 of jonas in udemy
+
+///menu fade animation
+/*
+const nav = document.querySelector('.nav'); //we select  the parent of all the nav links
+
+nav.addEventListener('mouseover', function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    //e.target is the current clicked [element]
+    const link = e.target; //link becomes the current target
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link'); //we select  all the  sibling of the link  or the current event target
+    const logo = link.closest('.nav').querySelector('img');
+
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = 0.5; ///this make all the nav__links makes them fade except the current event target
+    });
+    logo.style.opacity = 0.5; //this fade out the the logo
+  }
+});
+nav.addEventListener('mouseout', function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    //e.target is the current clicked [element]
+    const link = e.target; //link becomes the current target
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link'); //we select  all the  sibling of the link  or the current event target
+    const logo = link.closest('.nav').querySelector('img');
+
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = 1; ///this make all the nav__links makes them fade except the current event target
+    });
+    logo.style.opacity = 1; //this fade out the the logo
+  }
+});
+*/
+///menu fade animation refactored
+///refactoring all the above code to make it precise
+const nav = document.querySelector('.nav'); //we select  the parent of all the nav links
+
+// lets  create a function that named  handleHover
+const handleHover = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    //e.target is the current clicked [element]
+    const link = e.target; //link becomes the current target
+    const siblings = link.closest('.nav').querySelectorAll('.nav__link'); //we select  all the  sibling of the link  or the current event target
+    const logo = link.closest('.nav').querySelector('img');
+
+    siblings.forEach(el => {
+      if (el !== link) el.style.opacity = this; ///this make all the nav__links makes them fade except the current event target
+    });
+    logo.style.opacity = this; //this fade out the the logo
+  }
+};
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+nav.addEventListener('mouseout', handleHover.bind(1));
