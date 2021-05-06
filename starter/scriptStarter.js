@@ -204,7 +204,6 @@ const h1 = document.querySelector('h1');
 h1.addEventListener('mouseover', function (e) {
   alert('addEventListener: you are reading the heading'); //we can use multiple events using event listner in one time
 });
-
 h1.addEventListener('mouseenter', function (e) {
   alert('addEventListener: you are reading the heading okkkkkk');
 });
@@ -216,7 +215,6 @@ h1.onmouseenter = function (e) {
   alert('onmouseenter: you are reading the heading mennn'); //this over ride the first h1.onmouseenter
 };
 //note addEvent listener is the best becouse we can add multiple events to it  but the 'onmouseenter' can add events but the second event override the other event
-
 */
 
 ///if we want to listen an event only once  and then remove
@@ -241,18 +239,15 @@ setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000); //this wi
 /*Another phase of event processing is known as capturing. In practice, 
 it is rarely used but can be useful sometimes. With capturing, firstly, 
 the outermost element captures the event. Then the event is propagated to the inner elements.
-
 So, for reaching the click on <tr> , the event should pass through the chain of ancestors down to the exact element. 
 This process is called “capturing”. Then, it gets to the target, triggering there ( it is the target phase), and only after that,
  it goes up (the phase of bubbling), calling the handlers on its path.
-
 */
 
 //event.target
 
 /*The parent element’s handler can always receive the details where it happened. 
 The most deeply nested element causing the event, is known as a target element, and it is accessible as event.target.
-
 -the event.target is the target element, initiating the event. It will not change through the process of bubbling.*/
 
 //Bubbling
@@ -264,7 +259,6 @@ The most deeply nested element causing the event, is known as a target element, 
 /*The processes of capturing and bubbling are means of event propagation
  in the HTML DOM API when an event happens inside an element within another element, 
 and both of the elements have registered a handler.
-
 So, when an event occurs, the most nested element in which it happened becomes
  the “target element” (event.target). Afterward, this event moves down from the 
  document root to the target element, calling the handlers assigned with addEventListener(...., true) on the path. 
@@ -273,48 +267,30 @@ So, when an event occurs, the most nested element in which it happened becomes
 
 //eg
 /*
-
-
-
-
-
 //lets generate a ranndom color of rgb()  from 0 to 255   like rgb(234,0,255)  so on
-
 const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
 //console.log(randInt(0, 255));  for testing porpuse
 const randomColor = () =>
   `rgb(${randInt(0, 255)},${randInt(0, 255)},${randInt(0, 255)})`;
-
 //console.log(randomColor(0, 255)); //rgb(86,146,205)   it gives as random colors
-
 //lets attach then event handler to the specified element for click to happen
 //i this case the class of the feature from bankist
-
 document.querySelector('.nav__link').addEventListener('click', function (e) {
   this.style.backgroundColor = randomColor(); //and remember that in an event handler that this keyword, points always to the element on which that event handler is attached.
   console.log('LINK', e.target, e.currentTarget); //   First saying that this is the LINK and then event.target  And the target is essentially where the event originated.So where the event first happened.So this is not the element on which the handler is actually attached, okay?
   //e.currentTarget is  the element on which the handler is actually attached,  here is the LINK document.querySelector('.nav__link').
   //console.log(this === document.querySelector('.nav__link'));  true i write this code for testing purpose   that   the this key word is pointed to element on which that event handler is attached.  here(('.nav__link')
-
   //we can actually stop the event propagation. if we want to stop the propogation or bubbling to the parent elements
-
   //e.stopPropagation(); // if we stop the propagation then the parent element  never been  reached and then they will not handled the events but this is not good idea of stopping propogation
 });
-
 document.querySelector('.nav__links').addEventListener('click', function (e) {
   this.style.backgroundColor = randomColor();
   console.log('CONTAINER', e.target, e.currentTarget); //here e.target is not changed, e.currentTarget  is changed
 });
-
 document.querySelector('.nav').addEventListener('click', function (e) {
   this.style.backgroundColor = randomColor();
   console.log('NAV', e.target, e.currentTarget); //here e.target is not changed, e.currentTarget  is changed
 });
-
-
-
-
-
 */
 
 //note  : here in the above example  when an event happened or when click  first happened in the target element then  the capturing phase is starting
@@ -445,14 +421,12 @@ tabsContainer.addEventListener('click', function (e) {
 ///menu fade animation
 /*
 const nav = document.querySelector('.nav'); //we select  the parent of all the nav links
-
 nav.addEventListener('mouseover', function (e) {
   if (e.target.classList.contains('nav__link')) {
     //e.target is the current clicked [element]
     const link = e.target; //link becomes the current target
     const siblings = link.closest('.nav').querySelectorAll('.nav__link'); //we select  all the  sibling of the link  or the current event target
     const logo = link.closest('.nav').querySelector('img');
-
     siblings.forEach(el => {
       if (el !== link) el.style.opacity = 0.5; ///this make all the nav__links makes them fade except the current event target
     });
@@ -465,7 +439,6 @@ nav.addEventListener('mouseout', function (e) {
     const link = e.target; //link becomes the current target
     const siblings = link.closest('.nav').querySelectorAll('.nav__link'); //we select  all the  sibling of the link  or the current event target
     const logo = link.closest('.nav').querySelector('img');
-
     siblings.forEach(el => {
       if (el !== link) el.style.opacity = 1; ///this make all the nav__links makes them fade except the current event target
     });
@@ -493,3 +466,53 @@ const handleHover = function (e) {
 };
 nav.addEventListener('mouseover', handleHover.bind(0.5));
 nav.addEventListener('mouseout', handleHover.bind(1));
+
+//implementing sticky  navigation   check in jonas video 194
+
+///////////////////////////////////////
+// Sticky navigation: Intersection Observer API
+
+//const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
+
+const stickyNav = function (entries) {
+  const [entry] = entries;
+  // console.log(entry);
+
+  if (!entry.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`,
+});
+
+headerObserver.observe(header);
+
+// Lazy loading images
+const imgTargets = document.querySelectorAll('img[data-src]');
+
+const loadImg = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+  if (!entry.isIntersecting) return;
+
+  // Replace src with data-src
+  entry.target.src = entry.target.dataset.src;
+
+  entry.target.addEventListener('load', function () {
+    entry.target.classList.remove('lazy-img');
+  });
+
+  observer.unobserve(entry.target);
+};
+
+const imgObserver = new IntersectionObserver(loadImg, {
+  root: null,
+  threshold: 0,
+  rootMargin: '200px',
+});
+
+imgTargets.forEach(img => imgObserver.observe(img));
