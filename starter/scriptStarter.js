@@ -91,7 +91,7 @@ So what this means is that we can use the prepend and append methods not only to
 but also to move them. And again, that is because a DOM element is unique.
 So it can always only exist at one place at a time.*/
 
-//header.before(messages);//this insert message before header
+//header.before(messages); //this insert message before header
 //header.after(messages); //insert message after header
 
 /////deleting element
@@ -109,7 +109,7 @@ document
 //lets add styles for the cookie
 
 messages.style.backgroundColor = '#37383d'; //added this color to the cookie
-messages.style.width = '120%'; //added this height to the cookie
+messages.style.width = '120%'; //added this width to the cookie
 
 console.log(messages.style.color); //<empty string>  becouse we can not reterive the hidden color inside the class or color that is not exist
 console.log(messages.style.backgroundColor); //rgb(55, 56, 61)  we acceess this color becouse we set it by our self
@@ -129,7 +129,7 @@ console.log(getComputedStyle(messages).height); //119.6px   the new height      
 ///castom properties
 //we can change the custom property property color
 
-document.documentElement.style.setProperty('--color-primary', 'orangered'); //this change the '--color-primary'  colors to orange red
+document.documentElement.style.setProperty('--color-primary', 'green'); //this change the '--color-primary'  colors to green
 
 ////Attribute
 //eg lets  work with the  logo  of the bankist
@@ -315,7 +315,7 @@ NAV
 
 //note:the bubbling phase can be very useful for somethng called event delegation.
 
-///// if we really do want to catch events during the capturing phase, we can define a third parameter in the addEventlistener function.  we set it to true then  we then listening the capturing phase if we set it to folse then to bubbling phase
+///// if we really do want to catch events during the capturing phase, we can define a third parameter in the addEventlistener function.  we set it to true then  we then listening the capturing phase if we set it to false then to bubbling phase
 /*
 document.querySelector('.nav').addEventListener('click', function (e) {
   this.style.backgroundColor = randomColor();
@@ -337,8 +337,8 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 
   if (e.target.classList.contains('nav__link')) {
     //this means if the clicked elements (target element ) contains  the nav__link class then perform smooth scrolling   note:if the we clicked outside the element then nothing gonna happen becouse the target element will not contain the class 'nav__link'
-    const id = e.target.getAttribute('href'); //this will give us the sections    section--1 section--2  section --3
-    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+    const ar = e.target.getAttribute('href'); //this will give us the sections    section--1 section--2  section --3
+    document.querySelector(ar).scrollIntoView({ behavior: 'smooth' });
   }
 });
 
@@ -369,7 +369,7 @@ H1.closest('h1').style.background = 'skyblue'; //here the closeset parent is h1 
 
 /////going sideways: siblings
 //subling elemnts
-console.log(H1.previousElementSibling); //null becouse there is no subling element above h1  that sulings t0 h1
+console.log(H1.previousElementSibling); //null becouse there is no subling element above h1  that sublings t0 h1
 console.log(H1.nextElementSibling); // h4     this is the subling after h1
 //subling nodes
 console.log(H1.previousSibling); //#text   nodes
